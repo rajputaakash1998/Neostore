@@ -4,3 +4,4 @@ export const CartContext=createContext();
 export const AddressContext=createContext();
 export const SearchContext=createContext();
 export const LoginContext =createContext();
+export const ImageContext =createContext();

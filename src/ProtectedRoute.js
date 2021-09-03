@@ -3,14 +3,15 @@ import { Route, Redirect } from "react-router-dom";
 import { useContext } from "react";
 import { LoginContext } from "./context/Context";
 
-function ProtectedRoutes({ component: Component, ...rest }) {
+function ProtectedRoute({ component: Component, ...rest }) {
   const { login } = useContext(LoginContext);
+
 
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (login) {
+        if (localStorage.getItem("token")) {
           return <Component {...props} />;
         } else {
           return (
@@ -29,4 +30,4 @@ function ProtectedRoutes({ component: Component, ...rest }) {
   );
 }
 
-export default ProtectedRoutes;
+export default ProtectedRoute;

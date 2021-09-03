@@ -1,4 +1,7 @@
 import React,{useState} from 'react'
+import { useContext } from 'react'
+import { ImageContext } from '../context/Context'
+import { useHistory } from 'react-router'
 
 
 import {Carousel} from "react-bootstrap"
@@ -6,8 +9,16 @@ import {Carousel} from "react-bootstrap"
 
 
 function CarouselPage(props) {
+  
+  const history=useHistory();
+
+  const {image,imageDispatch}=useContext(ImageContext);
     
-    
+    function onCarouselImageClick(item){
+      console.log(item.category.name)
+      imageDispatch({type:"IMAGE_FILTER",payload:item.category.name})
+      history.push("/products")
+    }
     return (
     //     <div id="myCarousel" className="carousel slide" data-ride="carousel">
             
@@ -69,6 +80,7 @@ function CarouselPage(props) {
             style={{width:"100%"}}
             src={product.mainImage}
             alt={product.mainImage}
+            onClick={()=>onCarouselImageClick(product)}
           />
          
         </Carousel.Item>

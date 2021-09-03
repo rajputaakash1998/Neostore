@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
-import './forgetPassword.css'
+
+
 import {useForm} from "react-hook-form"
 import axios from 'axios'
 import { useHistory } from 'react-router'

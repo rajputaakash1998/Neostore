@@ -1,12 +1,11 @@
 import React from 'react';
 import img from "../images/aston.jpg";
 import AccountCard from "./AccountCard";
-import AddNewAddress from "./AddNewAddress";
-import AddressesComponent from "./AddressesComponent";
-import ChangePassword from "./ChangePassword";
+
+
 import EditAddress from "./EditAddress";
-import OrderCard from "./OrderCard";
-import UserProfile from "./UserProfile";
+
+
 
 function EditAddressPage() {
     return (

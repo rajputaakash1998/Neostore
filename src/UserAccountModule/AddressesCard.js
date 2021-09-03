@@ -5,6 +5,7 @@ import { useHistory } from 'react-router'
 import {AddressContext, CartContext} from "../context/Context"
 import { useContext } from 'react';
 import {BeatLoader} from "react-spinners"
+import ModalComponent from '../ModalComponent';
 
 function AddressesCard(props) {
     const {cartState,dispatch}=useContext(CartContext);
@@ -14,7 +15,23 @@ function AddressesCard(props) {
     const [cartLength,setCartLength]=useState(0);
 
     const [loading,setloading]=useState(false)
+    const [modalIsOpen, setIsOpen] =useState(false);
+  
+    function openModal() {
+      setIsOpen(true);
+    }
+  
+    
+  
+    function closeModal() {
+      setIsOpen(false);
+    }
 
+    function confirmDelete(){
+      deleteAddress();
+        
+    }
+    const load=props.onLoad;
     const fetchCartData= async ()=>{
         setloading(true)
         const token=localStorage.getItem("token");
@@ -80,6 +97,8 @@ console.log("CartLength",cartLength)
         addressDispatch({type:"SET_ADDRESS",payload:addressObj});
         history.push("/editAddress")
     }
+
+
     const deleteAddress=async()=>{
       const token=localStorage.getItem("token");
 
@@ -92,7 +111,10 @@ console.log("CartLength",cartLength)
       }
       try{
         const response=await axios(config);
+        load();
         alert("Successfully Deleted")
+       
+        
       }catch(error){
           alert("Can't Delete Address")
           console.log("Error",error)
@@ -111,8 +133,9 @@ console.log("CartLength",cartLength)
              <p>{props.address.country}</p>
             </div>
              
-           <div><i onClick={deleteAddress} style={{color:"red"}} class="fa fa-times"></i></div>
+           <div><i onClick={openModal} style={{color:"red"}} class="fa fa-times"></i></div>
            </div>
+           <ModalComponent openModal={openModal} closeModal={closeModal} modalIsOpen={modalIsOpen} confirmDelete={confirmDelete}/>
            <button onClick={onClickEdit} className="btn btn-primary">Edit Address</button>
 
           {loading ?(<div className="text-center"><BeatLoader size={30} color="red"/></div>):(

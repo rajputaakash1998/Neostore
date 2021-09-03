@@ -15,8 +15,8 @@ import Cart from './cartModule/Cart';
 import Forgot from './userModule/forgetPassword/Forgot';
 import {useReducer} from "react"
 
-import {AddressContext, CartContext, LoginContext, SearchContext} from "./context/Context";
-import {addressReducer, cartReducer, loginReducer, searchReducer} from "./context/reducer"
+import {AddressContext, CartContext, ImageContext, LoginContext, SearchContext} from "./context/Context";
+import {addressReducer, cartReducer, imageReducer, loginReducer, searchReducer} from "./context/reducer"
 import AddressPage from './UserAccountModule/AddressPage';
 import OrderPage from './UserAccountModule/OrderPage';
 import AddAddressPage from './UserAccountModule/AddAddressPage';
@@ -26,7 +26,7 @@ import ProfilePage from './UserAccountModule/ProfilePage';
 import Locate from './footer/Locate';
 import Invoice from './UserAccountModule/Invoice';
 import EditProfilePage from './UserAccountModule/EditProfilePage';
-import ProtectedRoutes from './ProtectedRoutes';
+import ProtectedRoute from './ProtectedRoute';
 
 
 
@@ -38,6 +38,8 @@ function App() {
   const [addressState, addressDispatch] = useReducer(addressReducer,[]);
   const [searchState,searchDispatch]=useReducer(searchReducer,"");
   const [login, loginDispatch] = useReducer(loginReducer, false)
+  const [image, imageDispatch] = useReducer(imageReducer, "")
+
 
   return (
     <div>
@@ -45,33 +47,35 @@ function App() {
         <AddressContext.Provider value={{addressState,addressDispatch}}>
           <SearchContext.Provider value={{searchState,searchDispatch}}>
             <LoginContext.Provider value={{login,loginDispatch}}>
+              <ImageContext.Provider value={{image,imageDispatch}}>
        <Router>
        <Header/>
       <Switch>
       <Route exact path="/"  component={Home}/>
       <Route path="/home"  component={Home}/>
-      <Route exact path="/productDetail/:id"  component={ProductDetail}/>
+     
       <Route path="/login" component={Login}/>
       <Route path="/products" component={Products}/>
       
       <Route path="/register" component={Register}/>
-      <Route path="/cart" component={Cart}/>
+      <ProtectedRoute path="/cart" component={Cart}/>
       <Route path="/forgotPassword" component={ForgetPassword}/>
       <Route path="/forgot" component={Forgot}/>
-      <Route path="/order" component={OrderPage}/>
-      <Route path="/address" component={AddressPage}/>
-      <Route path="/addAddress" component={AddAddressPage}/>
-      <Route path="/editAddress" component={EditAddressPage}/>
-      <Route path="/changePassword" component={ChangePassword}/>
-      <Route path="/profile" component={ProfilePage}/>
+      <ProtectedRoute path="/order" component={OrderPage}/>
+      <ProtectedRoute path="/address" component={AddressPage}/>
+      <ProtectedRoute path="/addAddress" component={AddAddressPage}/>
+      <ProtectedRoute path="/editAddress" component={EditAddressPage}/>
+      <ProtectedRoute path="/changePassword" component={ChangePassword}/>
+      <ProtectedRoute path="/profile" component={ProfilePage}/>
       <Route path="/loc" component={Locate}/>
-      <Route path="/invoice" component={Invoice}/>
-      <Route path="/editProfile" component={EditProfilePage}/>
-
+      <ProtectedRoute path="/invoice" component={Invoice}/>
+      <ProtectedRoute path="/editProfile" component={EditProfilePage}/>
+      <Route exact path="/productDetail/:id"  component={ProductDetail}/>
 
       </Switch>
       <Footer/>
     </Router>
+    </ImageContext.Provider>
     </LoginContext.Provider>
     </SearchContext.Provider>
     </AddressContext.Provider>

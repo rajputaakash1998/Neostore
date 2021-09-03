@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import "./home.css";
+
 
 import axios from "axios";
 import ProductCard from "../product/ProductCard";
@@ -32,6 +32,8 @@ function Home() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  console.log("Products",products)
   return (
     <div>
       <section>
@@ -53,7 +55,7 @@ function Home() {
         ) : (
           ""
         )}
-        <div className="container">
+        <div className="container" style={{marginLeft:"140px"}}>
           <div className="row">
             {products.map((item) => {
               return <ProductCard data={item} key={item.id} />;

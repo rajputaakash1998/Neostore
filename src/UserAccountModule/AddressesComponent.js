@@ -8,6 +8,7 @@ import {BeatLoader} from "react-spinners"
 function AddressesComponent() {
     const history=useHistory();
     const [addresses,setAddresses]=useState([]);
+    const[load,setLoad]=useState(false);
 
     const[loading,setLoading]=useState(false);
   
@@ -38,14 +39,17 @@ function AddressesComponent() {
     }
     useEffect(()=>{
         getAllAddress()
-    },[])
+    },[load])
     console.log(addresses)
    
+    const onLoad=()=>{
+        setLoad(!load);
+    }
     return (
         <div style={{ boxShadow: "0px 0px 3px 0px gray" }} className="container p-2">
             <h4>Addresses</h4>
             <hr></hr>
-            <div>
+            {/* <div>
                 {loading ? (<div className="text-center"><BeatLoader size={50} color="red"/></div>):(
                       addresses.map((address)=>(
                         <AddressesCard address={address} key={address._id}/>
@@ -53,7 +57,13 @@ function AddressesComponent() {
                 )}
               
                 
-            </div>
+            </div> */}
+            {
+               addresses.map((address)=>(
+                <AddressesCard address={address} key={address._id} onLoad={onLoad}/>
+             ))
+            }
+           
             <hr></hr>
             <button onClick={()=>history.push("/addAddress")} className="btn btn-secondary">Add Address</button>
         </div>

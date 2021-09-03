@@ -34,14 +34,14 @@ if(type === "prev"){
 
     return (
     <div className="d-flex justify-content-center">
-    <nav style={{border:"none"}} class=" navbar-light bg-light" >
+    <nav style={{border:"none",backgroundColor:"white"}} className="mr-5" >
    <ul className="pagination">
-    <li class="page-item"><a class="page-link" href="#" onClick={()=>onButtonClick("prev")}>Previous</a></li>
+    <li className="page-item"><a className="page-link" href="#" onClick={()=>onButtonClick("prev")}>Previous</a></li>
    
      {
         arr.map((el,index)=>(
-            <li class={`page-item ${index+1 ===counter ? "active" : null}`} key={index}>
-            <a class="page-link" href="#" onClick={()=>setCounter(index+1)}>
+            <li className={`page-item ${index+1 ===counter ? "active" : null}`} key={index}>
+            <a className="page-link" href="#" onClick={()=>setCounter(index+1)}>
                 {index+1}
             </a>
             </li>

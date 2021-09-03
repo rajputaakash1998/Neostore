@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import img from "../../images/aston.jpg"
-import "./productDetail.css"
+
+
 import { useParams } from 'react-router';
 import axios from "axios"
 import ProductDetailCard from './ProductDetailCard';
@@ -8,6 +9,7 @@ import {BeatLoader} from "react-spinners"
 
 
 function ProductDetail() {
+
    
     const [products,setProducts]=useState([]);
     const {id}=useParams();

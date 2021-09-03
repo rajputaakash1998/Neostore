@@ -31,10 +31,19 @@ export const searchReducer=(state,action)=>{
             return state;
     }
 }
+export const imageReducer=(state,action)=>{
+    switch(action.type){
+        case "IMAGE_FILTER":
+            return action.payload
+        default:
+            return state;
+    }
+}
 export const loginReducer=(state,action)=>{
     switch (action.type){
         case "AUTH":
             return action.payload;
+
         default:
             return state;
     }

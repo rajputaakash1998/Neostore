@@ -21,9 +21,9 @@ function Cart() {
 
   const fetchCartData= async ()=>{
     setLoading(true)
-    if(!localStorage.getItem("token")){
-      history.push("/login")
-    }
+    // if(!localStorage.getItem("token")){
+    //   history.push("/login")
+    // }
     const token=localStorage.getItem("token");
     const config={
       method:'get',
@@ -92,7 +92,7 @@ function Cart() {
               <p style={{ marginLeft: "300px" }}>Quantity</p>
               <div className="d-flex ">
                 <p style={{marginLeft:"100px"}}>Price</p>
-                <p style={{marginLeft:"100px"}}>Total</p>
+                <p style={{marginLeft:"90px"}}>Total</p>
               </div>
             </div>
           ))}

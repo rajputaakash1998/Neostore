@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import axios from "axios";
 import {CartContext} from "../context/Context"
 import { useContext } from 'react';
+import ModalComponent from "../ModalComponent";
 
 function CartCard(props) {
 
@@ -68,6 +69,24 @@ const deleteFromCart=async ()=>{
   dispatch({type:"REMOVE_FROM_CART",payload:props.product.productId.id})
 
 }
+
+
+const [modalIsOpen, setIsOpen] =useState(false);
+  
+    function openModal() {
+      setIsOpen(true);
+    }
+  
+    
+  
+    function closeModal() {
+      setIsOpen(false);
+    }
+
+    function confirmDelete(){
+      deleteFromCart();
+    }
+
   return (
    
 
@@ -97,7 +116,8 @@ const deleteFromCart=async ()=>{
           </span>
           <span className="col-md-3 ml-5">{props.product.productId.price}</span>
           <span className="col-md-3 ml-5">{props.product.totalAmount}</span>
-          <span onClick={deleteFromCart} className="fa fa-trash col-md-1 ml-5"></span>
+          <span onClick={openModal} className="fa fa-trash col-md-1 ml-5"></span>
+          <ModalComponent openModal={openModal} closeModal={closeModal} modalIsOpen={modalIsOpen} confirmDelete={confirmDelete}/>
         </div>
         </div>
       

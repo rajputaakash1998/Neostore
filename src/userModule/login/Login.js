@@ -1,5 +1,5 @@
 import React from "react";
-import "./login.css";
+
 import { NavLink,useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { GoogleLogin } from "react-google-login";
@@ -8,6 +8,10 @@ import TwitterLogin from "react-twitter-login/dist/";
 import axios from "axios";
 import { useContext } from "react";
 import {LoginContext} from "../../context/Context"
+import {toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+
 
 function Login() {
 
@@ -22,13 +26,12 @@ function Login() {
     mode: "onBlur",
   });
 
-  const onSubmit = (data) =>{
-  
-  console.log(data);
-  axios.post('https://neostore-api.herokuapp.com/api/auth/login',data)
-  .then((response)=>{
-    console.log(response)
-    if(response.status===200){
+  const onSubmit = async (data) =>{
+try{
+
+
+ const response=await axios.post('https://neostore-api.herokuapp.com/api/auth/login',data)
+  if(response.status===200){
       localStorage.setItem("token",response.data.data.token)
       localStorage.setItem("fname",response.data.data.firstName)
       localStorage.setItem("lname",response.data.data.lastName)
@@ -36,10 +39,14 @@ function Login() {
       localStorage.setItem("mobile",response.data.data.mobile)
       localStorage.setItem("gender",response.data.data.gender)
       loginDispatch({type:"AUTH",payload:true})
-
+      toast.success("Login SuccessFull",{position:'top-center'})
       history.push("/home");
     }
-  })
+  }catch(error){
+    toast.error(error.response.data.message,{position:'top-center'})
+    console.log(error.response.data.message)
+  }
+  
   }
 
   const responseGoogle = (response) => {
@@ -54,7 +61,9 @@ function Login() {
   };
 
   return (
+    
     <div className="container heading ">
+      {/* <ToastContainer position="top-center"/> */}
       <section className="vh-70">
         <div className="row d-flex jusitfy-content-center align-items-center">
           <div className="col-md-6 ">
@@ -165,8 +174,7 @@ function Login() {
                 </button>
               </form>
             </div>
-          </div>
-          <div className="anchor">
+            <div className="anchor ml-4">
             <span className="a1">
               <NavLink to="register">Register Now</NavLink>
             </span>
@@ -175,6 +183,8 @@ function Login() {
               <NavLink to="forgot">Forgot Password</NavLink>
             </span>
           </div>
+          </div>
+       
         </div>
       </section>
     </div>
