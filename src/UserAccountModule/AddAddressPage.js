@@ -2,7 +2,11 @@ import React from 'react';
 import img from "../images/aston.jpg";
 import AccountCard from "./AccountCard";
 import AddNewAddress from "./AddNewAddress";
-
+ /**
+ * @author Aakash Rajput
+ * @description this method renders the account and the add address component
+ * @returns returns the JSX of the add address page
+ */
 
 function AddAddressPage() {
     return (

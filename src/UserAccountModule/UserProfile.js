@@ -1,6 +1,12 @@
 import React from 'react'
 import {useHistory} from "react-router-dom"
 
+
+/**
+ * @author Aakash Rajput
+ * @description this method gets the user info from localstorage and shows in on profile page
+ * @returns returns the JSX of the Profile Page
+ */
 function UserProfile() {
 
     const history=useHistory();

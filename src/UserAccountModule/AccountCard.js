@@ -1,6 +1,11 @@
 import React from "react";
 import {NavLink} from "react-router-dom"
 
+ /**
+ * @author Aakash Rajput
+ * @description this method renders the user account like orders, addresses,change password,profile etc
+ * @returns returns the JSX of the Account page
+ */
 function AccountCard(props) {
 
    const firstName=localStorage.getItem("fname");

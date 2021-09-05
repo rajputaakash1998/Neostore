@@ -2,7 +2,11 @@ import React from 'react';
 import img from "../images/aston.jpg";
 import AccountCard from "./AccountCard";
 
-
+/**
+ * @author Aakash Rajput
+ * @description this method renders the account and the profile component
+ * @returns returns the JSX of the user Profile
+ */
 import UserProfile from "./UserProfile";
 
 function ProfilePage() {

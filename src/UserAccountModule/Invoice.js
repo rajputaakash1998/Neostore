@@ -1,8 +1,14 @@
 import React from 'react'
 import { Document, Page, Text, View,PDFViewer} from '@react-pdf/renderer';
-import { ToastContainer } from 'react-bootstrap';
 
 
+
+
+/**
+ * @author Aakash Rajput
+ * @description this method generates an invoice on every order as pdf
+ * @returns returns the JSX of the invoice
+ */
 
 function Invoice() {
     const invoice=JSON.parse(localStorage.getItem("invoiceObj"));

@@ -4,6 +4,11 @@ import { useHistory } from 'react-router'
 import axios from 'axios';
 import {BeatLoader} from "react-spinners"
 
+ /**
+ * @author Aakash Rajput
+ * @description this method fetches all the addresses from the api and render them to address acrd
+ * @returns returns the JSX of the edit address page
+ */
 
 function AddressesComponent() {
     const history=useHistory();
@@ -49,20 +54,15 @@ function AddressesComponent() {
         <div style={{ boxShadow: "0px 0px 3px 0px gray" }} className="container p-2">
             <h4>Addresses</h4>
             <hr></hr>
-            {/* <div>
+            <div>
                 {loading ? (<div className="text-center"><BeatLoader size={50} color="red"/></div>):(
                       addresses.map((address)=>(
-                        <AddressesCard address={address} key={address._id}/>
+                        <AddressesCard address={address} key={address._id} onLoad={onLoad}/>
                      ))
                 )}
               
                 
-            </div> */}
-            {
-               addresses.map((address)=>(
-                <AddressesCard address={address} key={address._id} onLoad={onLoad}/>
-             ))
-            }
+            </div> 
            
             <hr></hr>
             <button onClick={()=>history.push("/addAddress")} className="btn btn-secondary">Add Address</button>

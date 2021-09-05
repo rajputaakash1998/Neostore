@@ -19,6 +19,9 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
 const useStyles = makeStyles((theme) => ({
   react_autosuggest__input: {
@@ -66,6 +69,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+ /**
+ * @author Aakash Rajput
+ * @description this method renders header of the application like products ,orders,home etc
+ * @returns returns the JSX of the Header bar
+ */
 function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -116,10 +125,10 @@ function Header() {
   const onLogoutClick = () => {
     loginDispatch({ type: "AUTH", payload: false });
     localStorage.removeItem("token");
-    // localStorage.removeItem('fname');
 
+    toast("Logged Out", { type: "success", position: "top-center" });
     dispatch({ type: "REMOVE_ALL" });
-    loginDispatch({ type: "AUTH", payload: false });
+
     setBadgeCout(0);
     history.push("/home");
   };
@@ -244,15 +253,12 @@ function Header() {
             <i className="fa fa-user" style={{ fontSize: "24px" }}></i>
           </DropdownToggle>
           <DropdownMenu>
-            <DropdownItem
-              
-              
-              style={{ backgroundColor: "white" }}
-            >
+            <DropdownItem style={{ backgroundColor: "white" }}>
               {localStorage.getItem("token") ? (
                 <a
+                  //  href=""
                   style={{ textDecoration: "none", color: "black" }}
-                  onClick={onLogoutClick}
+                  onClick={() => onLogoutClick()}
                 >
                   Logout
                 </a>
@@ -265,11 +271,7 @@ function Header() {
                 </NavLink>
               )}
             </DropdownItem>
-            <DropdownItem
-              
-              
-              style={{ backgroundColor: "white" }}
-            >
+            <DropdownItem style={{ backgroundColor: "white" }}>
               {" "}
               {localStorage.getItem("token") ? (
                 ""
@@ -282,11 +284,7 @@ function Header() {
                 </NavLink>
               )}
             </DropdownItem>
-            <DropdownItem
-             
-             
-              style={{ backgroundColor: "white" }}
-            >
+            <DropdownItem style={{ backgroundColor: "white" }}>
               {localStorage.getItem("token") ? (
                 <NavLink
                   style={{ textDecoration: "none", color: "black" }}

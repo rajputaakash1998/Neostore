@@ -3,6 +3,17 @@ import {useForm} from "react-hook-form";
 import classNames from "classnames";
 import axios from "axios"
 import {useHistory} from "react-router-dom"
+import {toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+toast.configure();
+
+ /**
+ * @author Aakash Rajput
+ * @description this method is used to add a new addres
+ * @returns returns the JSX of the add address page
+ */
 
 function AddNewAddress() {
 
@@ -37,11 +48,12 @@ function AddNewAddress() {
         const response= await axios(config)
         console.log(response)
         if(response.status===200){
-          alert("Address added successfully !")
+          toast.success("Address added successfully !",{position:'top-center'})
           history.push("/address")
         }
        }catch(error){
-         alert("Error Occured",error)
+         
+        toast.error(error.response.data.message,{position:"top-center"})
        }
       
     }

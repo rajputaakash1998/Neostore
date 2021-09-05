@@ -6,11 +6,18 @@ import {AddressContext, CartContext} from "../context/Context"
 import { useContext } from 'react';
 import {BeatLoader} from "react-spinners"
 import ModalComponent from '../ModalComponent';
-
+import {toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
+ /**
+ * @author Aakash Rajput
+ * @description this method renders the data of each address
+ * @returns returns the JSX of the individual address card
+ */
 function AddressesCard(props) {
     const {cartState,dispatch}=useContext(CartContext);
 
-    const{addressState,addressDispatch}=useContext(AddressContext);
+    const{addressDispatch}=useContext(AddressContext);
 
     const [cartLength,setCartLength]=useState(0);
 
@@ -85,7 +92,7 @@ console.log("CartLength",cartLength)
     const response=await axios(config)
     console.log("Order Response",response)
     if(response.status===200){
-        alert("Order Placed Successfully")
+        toast.success("Order Placed Successfully",{position:"top-center"})
         dispatch({type:"REMOVE_ALL"})
         history.push("/order")
     }
@@ -112,11 +119,11 @@ console.log("CartLength",cartLength)
       try{
         const response=await axios(config);
         load();
-        alert("Successfully Deleted")
+        toast.success("Successfully Deleted",{position:"top-center"})
        
         
       }catch(error){
-          alert("Can't Delete Address")
+          toast.error("Can't Delete Address",{position:'top-center'})
           console.log("Error",error)
       }
       

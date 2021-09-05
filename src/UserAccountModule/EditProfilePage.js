@@ -2,6 +2,11 @@ import React from 'react';
 import img from "../images/aston.jpg";
 import AccountCard from "./AccountCard";
 
+/**
+ * @author Aakash Rajput
+ * @description this method is used to change the user details
+ * @returns returns the JSX of the user profile edit Form
+ */
 
 import EditProfile from './EditProfile';
 function EditProfilePage() {

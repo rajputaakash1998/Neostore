@@ -1,22 +1,26 @@
 import React from "react";
 
-import { NavLink,useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import TwitterLogin from "react-twitter-login/dist/";
 import axios from "axios";
 import { useContext } from "react";
-import {LoginContext} from "../../context/Context"
-import {toast } from "react-toastify";
+import { LoginContext } from "../../context/Context";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
+/**
+ * @author Aakash Rajput
+ * @description this method is takes the form inputs from the user and logs in the user
+ * @returns returns the JSX of the login Form
+ */
 
 function Login() {
-
-  const history=useHistory();
-  const {Login,loginDispatch}=useContext(LoginContext);
+  const history = useHistory();
+  const { loginDispatch } = useContext(LoginContext);
 
   const {
     register,
@@ -26,28 +30,28 @@ function Login() {
     mode: "onBlur",
   });
 
-  const onSubmit = async (data) =>{
-try{
-
-
- const response=await axios.post('https://neostore-api.herokuapp.com/api/auth/login',data)
-  if(response.status===200){
-      localStorage.setItem("token",response.data.data.token)
-      localStorage.setItem("fname",response.data.data.firstName)
-      localStorage.setItem("lname",response.data.data.lastName)
-      localStorage.setItem("email",response.data.data.email)
-      localStorage.setItem("mobile",response.data.data.mobile)
-      localStorage.setItem("gender",response.data.data.gender)
-      loginDispatch({type:"AUTH",payload:true})
-      toast.success("Login SuccessFull",{position:'top-center'})
-      history.push("/home");
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(
+        "https://neostore-api.herokuapp.com/api/auth/login",
+        data
+      );
+      if (response.status === 200) {
+        localStorage.setItem("token", response.data.data.token);
+        localStorage.setItem("fname", response.data.data.firstName);
+        localStorage.setItem("lname", response.data.data.lastName);
+        localStorage.setItem("email", response.data.data.email);
+        localStorage.setItem("mobile", response.data.data.mobile);
+        localStorage.setItem("gender", response.data.data.gender);
+        loginDispatch({ type: "AUTH", payload: true });
+        toast.success("Login SuccessFull", { position: "top-center" });
+        history.push("/home");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message, { position: "top-center" });
+      console.log(error.response.data.message);
     }
-  }catch(error){
-    toast.error(error.response.data.message,{position:'top-center'})
-    console.log(error.response.data.message)
-  }
-  
-  }
+  };
 
   const responseGoogle = (response) => {
     console.log(response);
@@ -61,7 +65,6 @@ try{
   };
 
   return (
-    
     <div className="container heading ">
       {/* <ToastContainer position="top-center"/> */}
       <section className="vh-70">
@@ -175,16 +178,15 @@ try{
               </form>
             </div>
             <div className="anchor ml-4">
-            <span className="a1">
-              <NavLink to="register">Register Now</NavLink>
-            </span>
-            <span>|</span>
-            <span className="a2">
-              <NavLink to="forgot">Forgot Password</NavLink>
-            </span>
+              <span className="a1">
+                <NavLink to="register">Register Now</NavLink>
+              </span>
+              <span>|</span>
+              <span className="a2">
+                <NavLink to="forgot">Forgot Password</NavLink>
+              </span>
+            </div>
           </div>
-          </div>
-       
         </div>
       </section>
     </div>

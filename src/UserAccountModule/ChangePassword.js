@@ -3,16 +3,27 @@ import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import axios from 'axios';
 import {useHistory} from "react-router-dom"
+import {toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 
+ /**
+ * @author Aakash Rajput
+ * @description this method takes the old ad new passwords ad updates the password
+ * @returns returns the JSX of the change password form
+ */ 
 function ChangePassword() {
 const history=useHistory();
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
   });
+
+  const currentPassword=watch("newPassword")
   
   const changePassword=async(data)=>{
     const token=localStorage.getItem("token");
@@ -26,12 +37,16 @@ const history=useHistory();
       data:data
       
     }
+    try{
     const response=await axios(config)
     console.log(response)
     if(response.status===200){
-      alert("Password Changed Successfully")
+      toast.success("Password Changed Successfully",{position:'top-center'})
       history.push("/login")
     }
+  }catch(error){
+    toast.error(error.response.data.message,{position:'top-center'})
+  }
   }
   const onSubmit=(data)=>{
     console.log(data)
@@ -74,10 +89,7 @@ const history=useHistory();
                      className={classNames("form-control", {
                       "is-invalid": errors.confirmPassword,
                     })}
-                    {...register("confirmPassword", { required:"Password is Required" ,minLength:{
-                        value:6,
-                        message:"Password must be 6 digits"
-                    } })}
+                    {...register("confirmPassword", { required:"Password is Required" ,validate:value=>value===currentPassword || "Password Don't Match",})}
                   />
                   {errors.confirmPassword && (<div style={{width:"350px",margin:"auto"}} className="invalid-feedback">{errors.confirmPassword.message}</div>)}
                     </div>

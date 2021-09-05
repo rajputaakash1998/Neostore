@@ -6,7 +6,11 @@ import AccountCard from "./AccountCard";
 import AddressesComponent from "./AddressesComponent";
 
 
-
+ /**
+ * @author Aakash Rajput
+ * @description this method renders the account and the address component
+ * @returns returns the JSX of the  address page
+ */
 
 
 export default function AddressPage() {

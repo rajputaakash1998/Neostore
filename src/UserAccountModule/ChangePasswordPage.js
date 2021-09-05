@@ -5,7 +5,11 @@ import img from "../images/aston.jpg";
 import AccountCard from "./AccountCard";
 
 import ChangePassword from "./ChangePassword";
-
+ /**
+ * @author Aakash Rajput
+ * @description this method renders the account and the change password component
+ * @returns returns the JSX of the change password page
+ */
 
 function ChangePasswordPage() {
     return (

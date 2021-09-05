@@ -7,9 +7,16 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 import TwitterLogin from "react-twitter-login/dist/";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
+
+
+/**
+ * @author Aakash Rajput
+ * @description this method is takes the form inputs from the user and regiters the user
+ * @returns returns the JSX of the registration Form
+ */
 
 function Register() {
   const history = useHistory();
@@ -27,11 +34,13 @@ function Register() {
 
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
   });
+  const currentPassword = watch("password");
 
   const onSubmit = (data) => {
     console.log(data.firstName);
@@ -211,7 +220,7 @@ function Register() {
                 </div>
               )}
             </div>
-            <div className="form-group">
+            <div className="form-group wrapper">
               <input
                 type="password"
                 name="confirm-password"
@@ -221,12 +230,11 @@ function Register() {
                 })}
                 {...register("confirm_password", {
                   required: "Confirm Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be 6 digits",
-                  },
+                  validate: (value) =>
+                    value === currentPassword || "The Password do no match",
                 })}
               />
+              <i class="fa fa-eye"></i>
               {errors.confirm_password && (
                 <div className="invalid-feedback">
                   {errors.confirm_password.message}

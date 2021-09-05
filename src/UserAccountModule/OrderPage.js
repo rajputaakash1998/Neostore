@@ -2,18 +2,20 @@ import React, { useState, useEffect } from "react";
 import img from "../images/aston.jpg";
 import AccountCard from "./AccountCard";
 
-
-
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
 import { useHistory } from "react-router-dom";
 import IndividualOrder from "./IndividualOrder";
 
+/**
+ * @author Aakash Rajput
+ * @description this method fetces the orders data from the apis and show it on the order page
+ * @returns returns the JSX of the Order Page
+ */
 function OrderPage() {
   const history = useHistory();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const [result, setResult] = useState(0);
 
   const fetchOrders = async () => {
     const token = localStorage.getItem("token");
@@ -37,17 +39,15 @@ function OrderPage() {
   };
 
   const setInvoiceData = (order) => {
-    const invoiceObj={
-    items:order.items,
-    orderId:order.id,
-    createdAt:order.createdAt
-    }
+    const invoiceObj = {
+      items: order.items,
+      orderId: order.id,
+      createdAt: order.createdAt,
+    };
     localStorage.setItem("invoiceObj", JSON.stringify(invoiceObj));
     history.push("/invoice");
   };
 
- 
-  
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -71,9 +71,9 @@ function OrderPage() {
 
           {orders.map((order, index) => {
             const result = order.items.reduce(function (tot, item) {
-              return tot + item.productId.price*item.quantity;
+              return tot + item.productId.price * item.quantity;
             }, 0);
-            const subTotal=Math.round(result + result * 0.05);
+            const subTotal = Math.round(result + result * 0.05);
             console.log("Result", result);
             return (
               <div
@@ -103,7 +103,10 @@ function OrderPage() {
                   <h4>Total:{subTotal}</h4>
                 </div>
                 <div>
-                  <button onClick={()=>setInvoiceData(order)} className="btn btn-primary mb-2 ml-2">
+                  <button
+                    onClick={() => setInvoiceData(order)}
+                    className="btn btn-primary mb-2 ml-2"
+                  >
                     Download invoice as PDF
                   </button>
                 </div>

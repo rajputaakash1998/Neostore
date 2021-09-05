@@ -8,7 +8,11 @@ import { useContext } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
-
+ /**
+ * @author Aakash Rajput
+ * @description this method renders the data of every individual card
+ * @returns returns the JSX of the product card
+ */
 function ProductCard(props) {
   const { cartState, dispatch } = useContext(CartContext);
 
