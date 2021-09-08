@@ -5,6 +5,7 @@ import AccountCard from "./AccountCard";
 /**
  * @author Aakash Rajput
  * @description this method renders the account and the profile component
+ *  @param this method doesn't accept any parameter
  * @returns returns the JSX of the user Profile
  */
 import UserProfile from "./UserProfile";

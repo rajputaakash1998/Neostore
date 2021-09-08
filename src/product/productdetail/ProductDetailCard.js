@@ -30,6 +30,7 @@ toast.configure();
  /**
  * @author Aakash Rajput
  * @description this method renders the details of individual product
+ * @param this method takes mainImage, subImage, description,features,name,price,color,total,avgRating as props from the parent component
  * @returns returns the JSX of the individual product page
  */
 function ProductDetailCard(props) {
@@ -44,7 +45,7 @@ function ProductDetailCard(props) {
 
   const addToCart = async () => {
     if (!localStorage.getItem("token")) {
-      alert("Please Login First");
+      toast.info("Please Login First",{position:'top-center'});
       history.push("/login");
     } else {
       const token = localStorage.getItem("token");
@@ -66,11 +67,11 @@ function ProductDetailCard(props) {
         if (response.status === 200) {
           dispatch({ type: "ADD_TO_CART", payload: productData });
           toast.success("Product Added Successfully", {
-            position: "top-center",
+            position: "bottom-center",
           });
         }
       } catch (error) {
-        toast.error(error.response.data.message, { position: "top-center" });
+        toast.error(error.response.data.message, { position: "bottom-center" });
       }
     }
   };
@@ -289,15 +290,18 @@ function ProductDetailCard(props) {
                       component="legend"
                       style={{ fontSize: "30px", color: "red" }}
                     >
-                      {rating}
+                    {rating}
                     </Typography>
                     <Rating
                       name="simple-controlled"
                       value={starValue}
                       onChange={(event, newValue) => {
                         setStarValue(newValue);
+                        changeRating(newValue)
                       }}
+                      // onClick={changeRating}
                     />
+                    
                   </Box>
                 ) : (
                   ""

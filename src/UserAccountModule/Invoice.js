@@ -7,6 +7,7 @@ import { Document, Page, Text, View,PDFViewer} from '@react-pdf/renderer';
 /**
  * @author Aakash Rajput
  * @description this method generates an invoice on every order as pdf
+ *  @param this method doesn't accept any parameter
  * @returns returns the JSX of the invoice
  */
 

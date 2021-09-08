@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 /**
  * @author Aakash Rajput
  * @description this method renders footer of the application
+ * @param this method doesn't accept any parameters
  * @returns returns the JSX of the footer bar
  */
 function Footer() {

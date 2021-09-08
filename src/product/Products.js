@@ -15,6 +15,7 @@ toast.configure();
  /**
  * @author Aakash Rajput
  * @description this method fetches the products data from the api and the renders individual product
+ * @param this method doesn't take any parameter from the parent 
  * @returns returns the JSX of the products page
  */
 function Products() {

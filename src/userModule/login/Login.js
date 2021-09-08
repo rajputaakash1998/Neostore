@@ -1,6 +1,6 @@
-import React from "react";
+import React,{useEffect} from "react";
 
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory ,Redirect} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
@@ -15,6 +15,7 @@ toast.configure();
 /**
  * @author Aakash Rajput
  * @description this method is takes the form inputs from the user and logs in the user
+ * @param this method doesn't accept any parameter
  * @returns returns the JSX of the login Form
  */
 
@@ -29,7 +30,7 @@ function Login() {
   } = useForm({
     mode: "onBlur",
   });
-
+  
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
@@ -44,11 +45,11 @@ function Login() {
         localStorage.setItem("mobile", response.data.data.mobile);
         localStorage.setItem("gender", response.data.data.gender);
         loginDispatch({ type: "AUTH", payload: true });
-        toast.success("Login SuccessFull", { position: "top-center" });
+        toast.success("Login SuccessFull", { position: "bottom-center" });
         history.push("/home");
       }
     } catch (error) {
-      toast.error(error.response.data.message, { position: "top-center" });
+      toast.error(error.response.data.message, { position: "bottom-center" });
       console.log(error.response.data.message);
     }
   };
@@ -64,9 +65,15 @@ function Login() {
     console.log(err, data);
   };
 
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+       history.push("/home")
+     }
+  }, [])
+
   return (
     <div className="container heading ">
-      {/* <ToastContainer position="top-center"/> */}
+     
       <section className="vh-70">
         <div className="row d-flex jusitfy-content-center align-items-center">
           <div className="col-md-6 ">

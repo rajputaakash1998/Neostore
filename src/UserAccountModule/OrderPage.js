@@ -10,6 +10,7 @@ import IndividualOrder from "./IndividualOrder";
 /**
  * @author Aakash Rajput
  * @description this method fetces the orders data from the apis and show it on the order page
+ *  @param this method doesn't accept any parameter
  * @returns returns the JSX of the Order Page
  */
 function OrderPage() {
@@ -52,7 +53,7 @@ function OrderPage() {
     fetchOrders();
   }, []);
 
-  // console.log(grandTotal)
+
   return (
     <div className="container py-4">
       <h5>My Account</h5>

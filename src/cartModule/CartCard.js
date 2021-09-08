@@ -6,11 +6,14 @@ import ModalComponent from "../ModalComponent";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
+
 /**
  * @author Aakash Rajput
  * @description this method renders the individual cart item
+ * @param this method takes various props such as mainImage,name,price ,totalAmount
  * @returns returns the JSX of the Cart card
  */
+
 function CartCard(props) {
   const [count, setCount] = useState(props.product.quantity);
   const { cartState, dispatch } = useContext(CartContext);
@@ -34,7 +37,7 @@ function CartCard(props) {
       setCount(count + 1);
       dispatch({ type: "UPDATE_QUANTITY" });
     } catch (errror) {
-      toast.error(errror.response.data.message, { position: "top-center" });
+      toast.error(errror.response.data.message, { position: "bottom-center" });
     }
   };
   const decrementCount = async () => {
@@ -67,16 +70,17 @@ function CartCard(props) {
     };
     try {
       const response = await axios(config);
-      toast.success("Product Deleted Successfully", { position: "top-center" });
-      console.log("Delete response", response.status);
-      console.log("THis is delete product id", props.product.productId.id);
+      closeModal();
+      toast.success("Product Deleted Successfully", { position: "bottom-center" });
+      
+
       dispatch({
         type: "REMOVE_FROM_CART",
         payload: props.product.productId.id,
       });
-      alert("Products Delteed");
+      
     } catch (error) {
-      toast.error(error.response.data.message, { position: "top-center" });
+      toast.error(error.response.data.message, { position: "bottom-center" });
     }
   };
 

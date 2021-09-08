@@ -4,6 +4,7 @@ import AccountCard from "./AccountCard";
  /**
  * @author Aakash Rajput
  * @description this method renders the account and the edit address component
+ *  @param this method doesn't accept any parameter
  * @returns returns the JSX of the edit address page
  */
 import EditAddress from "./EditAddress";

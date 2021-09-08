@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
  /**
  * @author Aakash Rajput
  * @description this method renders header of the application like products ,orders,home etc
+ * @param this method doesn't accept any parameters
  * @returns returns the JSX of the Header bar
  */
 function Header() {
@@ -125,17 +126,20 @@ function Header() {
   const onLogoutClick = () => {
     loginDispatch({ type: "AUTH", payload: false });
     localStorage.removeItem("token");
+    localStorage.removeItem("fname");
+    localStorage.removeItem("lname");
+    localStorage.removeItem("gender");
+    localStorage.removeItem("mobile");
+    localStorage.removeItem("email");
 
-    toast("Logged Out", { type: "success", position: "top-center" });
+    toast("Logged Out", { type: "success", position: "bottom-center" });
     dispatch({ type: "REMOVE_ALL" });
+    loginDispatch({ type: "AUTH", payload: false });
 
     setBadgeCout(0);
     history.push("/home");
   };
-  console.log("Login state", login);
-  console.log("Cart state length", cartState.length);
-  console.log("Badge Count", badgeCount);
-
+ 
   const onSearchChange = (e) => {
     let matches = [];
     let text = e.target.value;

@@ -5,6 +5,7 @@ import AddNewAddress from "./AddNewAddress";
  /**
  * @author Aakash Rajput
  * @description this method renders the account and the add address component
+ * @param this method doesn't accept any parameter
  * @returns returns the JSX of the add address page
  */
 

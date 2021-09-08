@@ -2,6 +2,7 @@ import React, { useState } from "react";
 /**
  * @author Aakash Rajput
  * @description this method is used to upadte the user details
+ *  @param this method doesn't accept any parameter
  * @returns returns the JSX of the edit details Form
  */
 function EditProfile() {

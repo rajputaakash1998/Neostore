@@ -1,10 +1,17 @@
 import React,{useState,useEffect} from 'react'
 
+/**
+ * @author Aakash Rajput
+ * @description this method is responsible for the pagination functionality
+ * @param it takes showPerPage,onPaginationChange,total props from the parent component
+ * @returns it returns the JSX of the Pagination Component
+ */
 function Pagination({showPerPage,onPaginationChange,total}) {
 const[counter,setCounter]=useState(1);
 
 const val=Math.ceil(total/showPerPage)
-//const [noOfButtons,setNoOfButtons]=useState(val);
+
+
 const arr = new Array(val).fill(0);
 
 useEffect(()=>{
@@ -13,7 +20,8 @@ useEffect(()=>{
 },[counter])
 
 console.log(arr);
-//console.log("number od buttons",noOfButtons)
+
+
 console.log('val',val)
 
 const onButtonClick=(type)=>{
@@ -47,9 +55,7 @@ if(type === "prev"){
             </li>
         ))
     } 
-     {/* <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li> */}
+    
      <li class="page-item"><a class="page-link" href="#" onClick={()=>onButtonClick("next")}>Next</a></li>
   </ul>
 </nav> 

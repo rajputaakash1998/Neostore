@@ -4,6 +4,7 @@ import React from "react";
 /**
  * @author Aakash Rajput
  * @description this method shoes the data of individul order
+ *  @param this method accepts mainImage,name,price,quantity,description as props from parent
  * @returns returns the JSX of the individual order
  */
 

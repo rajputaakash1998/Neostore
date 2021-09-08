@@ -11,6 +11,7 @@ toast.configure();
  /**
  * @author Aakash Rajput
  * @description this method is use to update the address
+ *  @param this method doesn't accept any parameter
  * @returns returns the JSX of the edit address page
  */
 function EditAddress() {
@@ -64,11 +65,11 @@ function EditAddress() {
     try {
       const response = await axios(config);
       if (response.status === 200) {
-        toast.success("Address Updated", { position: "top-center" });
+        toast.success("Address Updated", { position: "bottom-center" });
         history.push("/address");
       }
     } catch (error) {
-      toast.error(error.response.data.message, { position: "top-center" });
+      toast.error(error.response.data.message, { position: "bottom-center" });
     }
   };
   console.log(addressState);

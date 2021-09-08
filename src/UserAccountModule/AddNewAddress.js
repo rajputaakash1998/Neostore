@@ -12,6 +12,7 @@ toast.configure();
  /**
  * @author Aakash Rajput
  * @description this method is used to add a new addres
+ * @param this method doesn't accept any parameter
  * @returns returns the JSX of the add address page
  */
 
@@ -48,12 +49,12 @@ function AddNewAddress() {
         const response= await axios(config)
         console.log(response)
         if(response.status===200){
-          toast.success("Address added successfully !",{position:'top-center'})
+          toast.success("Address added successfully !",{position:'bottom-center'})
           history.push("/address")
         }
        }catch(error){
          
-        toast.error(error.response.data.message,{position:"top-center"})
+        toast.error(error.response.data.message,{position:"bottom-center"})
        }
       
     }

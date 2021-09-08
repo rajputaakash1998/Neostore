@@ -5,6 +5,7 @@ import AccountCard from "./AccountCard";
 /**
  * @author Aakash Rajput
  * @description this method is used to change the user details
+ *  @param this method doesn't accept any parameter
  * @returns returns the JSX of the user profile edit Form
  */
 

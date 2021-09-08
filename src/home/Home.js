@@ -11,9 +11,9 @@ import CarouselPage from "./CarouselPage";
 /**
  * 
  * @author Aakash Rajput
- * @description 
- * @param 
- * @returns 
+ * @description this method is responsible for the home page is displays the data on the home page
+ * @param this method doesn't accept any parameters
+ * @returns this method returns the JSX of the Home page
  */
 
 function Home() {

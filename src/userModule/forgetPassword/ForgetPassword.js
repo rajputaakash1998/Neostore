@@ -11,6 +11,7 @@ toast.configure();
 /**
  * @author Aakash Rajput
  * @description this method is takes the form inputs from the user and reset the password
+ *  @param this method doesn't accept any parameter
  * @returns returns the JSX of the Forgot Password Page
  */
 function ForgetPassword() {

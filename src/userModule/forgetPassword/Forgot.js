@@ -2,7 +2,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import {useHistory} from "react-router-dom"
-
+/**
+ * @author Aakash Rajput
+ * @description this method is takes the form inputs from the user and reset the password
+ *  @param this method doesn't accept any parameter
+ * @returns returns the JSX of the Forgot Password Page
+ */
 function Forgot() {
  const history=useHistory();
 

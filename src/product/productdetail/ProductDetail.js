@@ -7,6 +7,7 @@ import { BeatLoader } from "react-spinners";
  /**
  * @author Aakash Rajput
  * @description this method renders the data of product details page
+ * @param this method doesn't take any parameter
  * @returns returns the JSX of the product details page
  */
 function ProductDetail() {

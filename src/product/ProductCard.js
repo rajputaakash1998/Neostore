@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Rating from "@material-ui/lab/Rating";
 import { useHistory, Link } from "react-router-dom";
@@ -7,20 +7,29 @@ import { CartContext } from "../context/Context";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import img from "../images/sofa.jpeg"
 toast.configure();
  /**
  * @author Aakash Rajput
  * @description this method renders the data of every individual card
+ * @param this method takes mainImage,name,price,avgRating as props from the parent component
  * @returns returns the JSX of the product card
  */
 function ProductCard(props) {
   const { cartState, dispatch } = useContext(CartContext);
 
   const history = useHistory();
-
+  let mainImage=""
+  let image=props.data.mainImage;
+  if(image===undefined){
+    mainImage=img;
+  }else{
+    mainImage=props.data.mainImage
+  }
   const addToCart = async () => {
     if (!localStorage.getItem("token")) {
-      alert("Login First");
+      
+      toast.info("Please Login Frist",{position:'top-center'})
       history.replace("/login");
     }
     const token = localStorage.getItem("token");
@@ -42,10 +51,10 @@ function ProductCard(props) {
       console.log(response);
       if (response.status === 200) {
         dispatch({ type: "ADD_TO_CART", payload: productData });
-        toast.success("Product Added Successfully", { position: "top-center" });
+        toast.success("Product Added Successfully", { position: "bottom-center" });
       }
     } catch (error) {
-      toast.error(error.response.data.message, { position: "top-center" });
+      toast.error(error.response.data.message, { position: "bottom-center" });
     }
   };
   return (
@@ -54,9 +63,9 @@ function ProductCard(props) {
         <Link to={`/productDetail/${props.data._id}`}>
           <img
             style={{ height: "200px" }}
-            src={props.data.mainImage}
+            src={mainImage}
             className="card-img-top"
-            alt={props.data.mainImage}
+            alt={mainImage}
           />
         </Link>
 

@@ -4,6 +4,7 @@ import {NavLink} from "react-router-dom"
  /**
  * @author Aakash Rajput
  * @description this method renders the user account like orders, addresses,change password,profile etc
+ * @param this method take img as a prop from the parent
  * @returns returns the JSX of the Account page
  */
 function AccountCard(props) {

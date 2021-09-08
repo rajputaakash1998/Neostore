@@ -15,6 +15,7 @@ toast.configure();
 /**
  * @author Aakash Rajput
  * @description this method is takes the form inputs from the user and regiters the user
+ * @param this method doesn't accept any parameter
  * @returns returns the JSX of the registration Form
  */
 
@@ -62,12 +63,12 @@ function Register() {
         console.log(response);
 
         if (response.status === 200) {
-          toast.success("Registration Successful", { position: "top-center" });
+          toast.success("Registration Successful", { position: "bottom-center" });
           history.push("/login");
         }
       })
       .catch((error) => {
-        toast.info(error.response.data.message, { position: "top-center" });
+        toast.info(error.response.data.message, { position: "bottom-center" });
       });
   };
 
@@ -234,7 +235,7 @@ function Register() {
                     value === currentPassword || "The Password do no match",
                 })}
               />
-              <i class="fa fa-eye"></i>
+             
               {errors.confirm_password && (
                 <div className="invalid-feedback">
                   {errors.confirm_password.message}

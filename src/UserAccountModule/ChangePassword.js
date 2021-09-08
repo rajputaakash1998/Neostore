@@ -10,6 +10,7 @@ toast.configure();
  /**
  * @author Aakash Rajput
  * @description this method takes the old ad new passwords ad updates the password
+ *  @param this method doesn't accept any parameter
  * @returns returns the JSX of the change password form
  */ 
 function ChangePassword() {
@@ -41,11 +42,11 @@ const history=useHistory();
     const response=await axios(config)
     console.log(response)
     if(response.status===200){
-      toast.success("Password Changed Successfully",{position:'top-center'})
+      toast.success("Password Changed Successfully",{position:'bottom-center'})
       history.push("/login")
     }
   }catch(error){
-    toast.error(error.response.data.message,{position:'top-center'})
+    toast.error(error.response.data.message,{position:'bottom-center'})
   }
   }
   const onSubmit=(data)=>{

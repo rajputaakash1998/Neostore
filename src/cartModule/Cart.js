@@ -10,6 +10,7 @@ import { BeatLoader } from "react-spinners";
 /**
  * @author Aakash Rajput
  * @description this method fetches the cart data from the api and then renders individual cart item
+ * @param this method doesn't accept any parameters
  * @returns returns the JSX of the Cart page
  */
 function Cart() {
@@ -55,11 +56,8 @@ function Cart() {
       history.push("/address");
     } else {
       history.push("/login");
-    }/**
- * @author Aakash Rajput
- * @description this method renders the individual cart item
- * @returns returns the JSX of the Cart card
- */
+    }
+
   };
 
   return (
