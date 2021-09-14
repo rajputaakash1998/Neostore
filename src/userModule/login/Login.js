@@ -79,7 +79,7 @@ function Login() {
           <div className="col-md-6 ">
             <div className="icons">
               <FacebookLogin
-                appId="560717078454282"
+                appId=""
                 autoLoad={false}
                 fields="name,email,picture"
                 callback={responseFacebook}
@@ -100,8 +100,8 @@ function Login() {
 
               <TwitterLogin
                 authCallback={authHandler}
-                consumerKey="fARIugutAH0edNvaHLeF9Zoch"
-                consumerSecret="dbKkHi8MW2DIBMgthnxV2VzLtIlsjuKB3jDmKHTK1l35kJuF5A"
+                consumerKey=""
+                consumerSecret=""
                 className="btn btn-info btn-lg btn-block"
               >
                 <i
@@ -112,7 +112,7 @@ function Login() {
               </TwitterLogin>
 
               <GoogleLogin
-                clientId="366024336343-003ajte9itopgka1ee3bv4fhg0qe3hi8.apps.googleusercontent.com"
+                clientId=""
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={"single_host_origin"}
