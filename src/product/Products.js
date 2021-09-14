@@ -12,10 +12,10 @@ import { useContext } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
- /**
+/**
  * @author Aakash Rajput
  * @description this method fetches the products data from the api and the renders individual product
- * @param this method doesn't take any parameter from the parent 
+ * @param this method doesn't take any parameter from the parent
  * @returns returns the JSX of the products page
  */
 function Products() {
@@ -55,7 +55,7 @@ function Products() {
     const response = await axios.get(
       "https://neostore-api.herokuapp.com/api/category"
     );
-    console.log(response);
+
     setCateory(response.data.data);
   };
 
@@ -63,9 +63,8 @@ function Products() {
     const response = await axios.get(
       "https://neostore-api.herokuapp.com/api/color"
     );
-    console.log(response);
+
     setColor(response.data.data);
-    console.log("color", color);
   };
 
   const onCategoryChange = (e) => {
@@ -73,8 +72,8 @@ function Products() {
     if (e.target.value === "select") {
       setFetchByCategory("");
     } else {
-      searchDispatch({ type: "SEARCH", payload: "" });
-      console.log(e.target.value);
+      // searchDispatch({ type: "SEARCH", payload: "" });
+
       setFetchByCategory(e.target.value);
     }
   };
@@ -82,14 +81,14 @@ function Products() {
     if (e.target.value === "select") {
       setFetchByColor("");
     } else {
-      searchDispatch({ type: "SEARCH", payload: "" });
-      console.log(e.target.value);
+      //searchDispatch({ type: "SEARCH", payload: "" });
+
       setFetchByColor(e.target.value);
     }
   };
 
   const onSortChange = (e) => {
-    searchDispatch({ type: "SEARCH", payload: "" });
+    //searchDispatch({ type: "SEARCH", payload: "" });
     setSort(e.target.value);
     if (e.target.value === "rating high to low") {
       setFetchBySort("rating");
@@ -104,40 +103,36 @@ function Products() {
       setFetchBySort("price");
       setFetchByOrder("desc");
     }
-
   };
 
   const fetchData = async () => {
     setLoading(true);
-    if (searchState) {
-      
-      let url = "https://neostore-api.herokuapp.com/api/product?limit=20";
-      const response = await axios.get(url);
-      setLoading(false);
+    // if (searchState) {
+    //   let url = "https://neostore-api.herokuapp.com/api/product?limit=20";
+    //   const response = await axios.get(url);
+    //   setLoading(false);
 
-      const filteredResponse = response.data.data.docs.filter((product) => {
-        return product.name === searchState;
-      });
-      setData(filteredResponse);
-    } else {
-      let url = "https://neostore-api.herokuapp.com/api/product?limit=20";
+    //   const filteredResponse = response.data.data.docs.filter((product) => {
+    //     return product.name === searchState;
+    //   });
+    //   setData(filteredResponse);
+    // } else {
+    let url = "https://neostore-api.herokuapp.com/api/product?limit=20";
 
-      if (fetchByCategory !== "" || fetchByCategory !== "Select") {
-        url = url + `&category=${fetchByCategory}`;
-      }
-      if (fetchByColor !== "") {
-        url = url + `&color=${fetchByColor}`;
-      }
-      if (fetchBySort !== "") {
-        url = url + `&sortby=${fetchBySort}&orderby=${fetchByOrder}`;
-      }
-      console.log(url);
-      const response = await axios.get(url);
-      setLoading(false);
-      console.log("This is Api response", response);
-      setData(response.data.data.docs);
-      console.log(data.length);
+    if (fetchByCategory !== "" || fetchByCategory !== "Select") {
+      url = url + `&category=${fetchByCategory}`;
     }
+    if (fetchByColor !== "") {
+      url = url + `&color=${fetchByColor}`;
+    }
+    if (fetchBySort !== "") {
+      url = url + `&sortby=${fetchBySort}&orderby=${fetchByOrder}`;
+    }
+
+    const response = await axios.get(url);
+    setLoading(false);
+
+    setData(response.data.data.docs);
   };
   const allProducts = () => {
     setFetchByCategory("");
@@ -145,41 +140,29 @@ function Products() {
     setFetchBySort("");
     setFetchByOrder("");
     setSort("");
-    searchDispatch({ type: "SEARCH", payload: "" });
+    //searchDispatch({ type: "SEARCH", payload: "" });
   };
 
   useEffect(() => {
     fetchData();
     listCategory();
     listColor();
-  }, [fetchByColor, fetchByOrder, fetchBySort, fetchByCategory, searchState]);
+  }, [fetchByColor, fetchByOrder, fetchBySort, fetchByCategory]);
 
   useEffect(() => {
     onImageClick();
   }, [image]);
 
-  useEffect(() => {
-    fetchData();
-  }, [searchState]);
-
-  console.log("Fitered Product", data);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [searchState]);
 
   const onPaginationChange = (start, end) => {
     setPagination({ start: start, end: end });
   };
-  console.log("searchState", searchState);
-  console.log("category", category);
-  console.log("Image", image);
 
-  console.log(data);
-  console.log(color);
-  console.log(category);
-  console.log(fetchByOrder);
-  console.log(fetchBySort);
-  console.log("category", fetchByCategory);
-  console.log("color", fetchByColor);
   return (
-    <div className="m-4">
+    <div className=" custom-container">
       <div className="row ">
         <div className="col-md-3">
           <div className="container  d-flex flex-column">
@@ -236,24 +219,29 @@ function Products() {
         </div>
 
         <div className="col-md-9">
-          <div className="container">
+          <div className="container" style={{ width: "100%" }}>
             {loading ? (
-              <div style={{ textAlign: "center" }}>
-                <BeatLoader size={72} color="red" />
+              <div className="mt-4" style={{ textAlign: "center" }}>
+                <BeatLoader size={90} color="red" />
+              </div>
+            ) : data.length === 0 ? (
+              <div className="text-center">
+                <h4 className="display-6">No Products Available !</h4>
               </div>
             ) : (
-              ""
+              <>
+                <div className="row">
+                  {data.slice(pagination.start, pagination.end).map((item) => (
+                    <ProductCard data={item} key={item.id} />
+                  ))}
+                </div>
+                <Pagination
+                  total={data.length}
+                  showPerPage={showPerPage}
+                  onPaginationChange={onPaginationChange}
+                />
+              </>
             )}
-            <div className="row">
-              {data.slice(pagination.start, pagination.end).map((item) => (
-                <ProductCard data={item} key={item.id} />
-              ))}
-            </div>
-            <Pagination
-              total={data.length}
-              showPerPage={showPerPage}
-              onPaginationChange={onPaginationChange}
-            />
           </div>
         </div>
       </div>

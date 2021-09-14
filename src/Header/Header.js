@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { NavLink, Link } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { Badge } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Autosuggest from "react-autosuggest";
 import { defaultTheme } from "react-autosuggest/dist/theme";
+import ModalComponent from "../ModalComponent";
 import {
   Dropdown,
   DropdownToggle,
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "16px",
     border: "1px solid #aaa",
     borderRadius: "4px",
+    textAlign:"left"
   },
   react_autosuggest__input__focused: {
     outline: "none",
@@ -45,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     position: "absolute",
     top: "51px",
-    width: "280px",
+    width: "180px",
     border: "1px solid #aaa",
     backgroundColor: "#fff",
     fontFamily: "Helvetica, sans-serif",
@@ -54,23 +56,32 @@ const useStyles = makeStyles((theme) => ({
     borderBottomLeftRadius: "4px",
     borderBottomRightRadius: "4px",
     zIndex: "2",
+  
+    
+    
   },
   react_autosuggest__suggestions_list: {
-    margin: "0",
+    marginLeft: "0",
     padding: "0",
     listStyleType: "none",
+   
+    
+    
+   
   },
   react_autosuggest__suggestion: {
     cursor: "pointer",
     padding: "10px 20px",
+    textAlign:"left",
+    
+    
   },
   react_autosuggest__suggestion__highlighted: {
     backgroundColor: "#ddd",
   },
 }));
 
-
- /**
+/**
  * @author Aakash Rajput
  * @description this method renders header of the application like products ,orders,home etc
  * @param this method doesn't accept any parameters
@@ -85,7 +96,7 @@ function Header() {
   const history = useHistory();
 
   const { cartState, dispatch } = useContext(CartContext);
-  const { searchDispatch } = useContext(SearchContext);
+  const { searchState, searchDispatch } = useContext(SearchContext);
 
   const { login, loginDispatch } = useContext(LoginContext);
 
@@ -94,6 +105,22 @@ function Header() {
   const [suggestions, setSuggestions] = useState([]);
   const [options, setOptions] = useState([]);
   const [value, setValue] = useState("");
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+    setDropdownOpen(true)
+  }
+  function confirmDelete() {
+    onLogoutClick();
+    
+  }
+  
 
   console.log("Badgecount before", badgeCount);
   console.log("Cart length Before", cartState.length);
@@ -131,15 +158,16 @@ function Header() {
     localStorage.removeItem("gender");
     localStorage.removeItem("mobile");
     localStorage.removeItem("email");
-
+   
     toast("Logged Out", { type: "success", position: "bottom-center" });
+    closeModal();
     dispatch({ type: "REMOVE_ALL" });
     loginDispatch({ type: "AUTH", payload: false });
 
     setBadgeCout(0);
     history.push("/home");
   };
- 
+
   const onSearchChange = (e) => {
     let matches = [];
     let text = e.target.value;
@@ -155,9 +183,15 @@ function Header() {
   };
 
   const onSearchClick = () => {
+    //fetchData();
+    const filteredResponse = options.filter((product) => {
+      return product.name === searchQuery;
+    });
     searchDispatch({ type: "SEARCH", payload: searchQuery });
-    setSearchQuery("");
-    history.push("/products");
+    //setSearchQuery("");
+    const id = filteredResponse[0].id;
+
+    history.push(`/products/${id}`);
   };
   console.log(searchQuery);
 
@@ -169,9 +203,11 @@ function Header() {
     if (localStorage.getItem("token")) {
       fetchCartData();
     }
-  }, [login, cartState]);
+  }, [login, cartState, searchState]);
 
   console.log("Optionss", options);
+  console.log("SUggestions", suggestions);
+  //console.log("filtered response",filteredResponse)
 
   const onChange = (event, { newValue }) => {
     setValue(newValue);
@@ -179,7 +215,7 @@ function Header() {
 
   const inputProps = {
     placeholder: "Search Product",
-    value,
+    value: searchQuery,
     onChange: onChange,
   };
   return (
@@ -190,13 +226,13 @@ function Header() {
         </li>
         <div className="itemss">
           <li>
-            <NavLink to="home">Home</NavLink>
+            <NavLink to="/home">Home</NavLink>
           </li>
           <li>
-            <NavLink to="products">Products</NavLink>
+            <NavLink to="/products">Products</NavLink>
           </li>
           <li>
-            <NavLink to="order">Orders</NavLink>
+            <NavLink to="/order">Orders</NavLink>
           </li>
         </div>
 
@@ -207,7 +243,7 @@ function Header() {
             onSuggestionsFetchRequested={() => setSuggestions(suggestions)}
             onSuggestionsClearRequested={() => setSuggestions([])}
             getSuggestionValue={(suggestion) => suggestion.name}
-            renderSuggestion={(suggestion) => <div>{suggestion.name}</div>}
+            renderSuggestion={(suggestion) => <div style={{textAlign:"left",marginLeft:"0"}}>{suggestion.name}</div>}
             onSuggestionSelected={(event, { suggestion, method }) => {
               setSearchQuery(suggestion.name);
             }}
@@ -236,7 +272,7 @@ function Header() {
           <div className="cartdiv">
             <NavLink
               style={{ textDecoration: "none", color: "black" }}
-              to="cart"
+              to="/cart"
             >
               Cart
               <IconButton aria-label="cart">
@@ -262,14 +298,14 @@ function Header() {
                 <a
                   //  href=""
                   style={{ textDecoration: "none", color: "black" }}
-                  onClick={() => onLogoutClick()}
+                  onClick={() => openModal()}
                 >
                   Logout
                 </a>
               ) : (
                 <NavLink
                   style={{ textDecoration: "none", color: "black" }}
-                  to="login"
+                  to="/login"
                 >
                   Login
                 </NavLink>
@@ -282,7 +318,7 @@ function Header() {
               ) : (
                 <NavLink
                   style={{ textDecoration: "none", color: "black" }}
-                  to="register"
+                  to="/register"
                 >
                   Register
                 </NavLink>
@@ -292,13 +328,20 @@ function Header() {
               {localStorage.getItem("token") ? (
                 <NavLink
                   style={{ textDecoration: "none", color: "black" }}
-                  to="profile"
+                  to="/profile"
                 >
                   Account
                 </NavLink>
               ) : (
                 ""
               )}
+              <ModalComponent
+                openModal={openModal}
+                closeModal={closeModal}
+                modalIsOpen={modalIsOpen}
+                confirmDelete={confirmDelete}
+                text="Are you sure you want to Logout?"
+              />
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

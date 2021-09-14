@@ -4,14 +4,15 @@ import { useParams } from "react-router";
 import axios from "axios";
 import ProductDetailCard from "./ProductDetailCard";
 import { BeatLoader } from "react-spinners";
- /**
+/**
  * @author Aakash Rajput
  * @description this method renders the data of product details page
  * @param this method doesn't take any parameter
  * @returns returns the JSX of the product details page
  */
-function ProductDetail() {
+function ProductDetail(props) {
   const [products, setProducts] = useState([]);
+
   const { id } = useParams();
 
   async function fetchProduct() {
@@ -30,9 +31,11 @@ function ProductDetail() {
     return product._id === id;
   });
   console.log("details", details);
+  console.log("This is the Id", id);
+  console.log("These are the props", props);
 
   return (
-    <>
+    <div className="custom-container">
       {products.length === 0 ? (
         <div style={{ textAlign: "center" }}>
           <BeatLoader size={72} color="red" />
@@ -44,7 +47,7 @@ function ProductDetail() {
           })}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

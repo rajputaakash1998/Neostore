@@ -144,6 +144,7 @@ function AddressesCard(props) {
         closeModal={closeModal}
         modalIsOpen={modalIsOpen}
         confirmDelete={confirmDelete}
+        text="Are you sure you want to delete this?"
       />
       <button onClick={onClickEdit} className="btn btn-primary">
         Edit Address

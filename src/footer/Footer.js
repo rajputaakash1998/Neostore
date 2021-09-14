@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
  */
 function Footer() {
   return (
-    <div className="footer-container row">
+    <div className="footer-container row px-4">
       <div className="col-md-4">
         <h2>About Company</h2>
         <a href="#">Neosoft Technologies</a>

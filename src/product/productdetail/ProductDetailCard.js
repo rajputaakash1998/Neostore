@@ -113,10 +113,9 @@ function ProductDetailCard(props) {
       setRating("Excellent");
     }
   };
-  
 
-  console.log("Rating", rating);
-  console.log("StarValue", starValue);
+  
+  
   return (
     <div className="container py-5">
       <div className="row">

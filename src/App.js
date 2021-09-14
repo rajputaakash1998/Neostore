@@ -59,43 +59,57 @@ function App() {
                 <Router>
                   <Header />
                   <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/home" component={Home} />
+                  <Route exact path="/" component={Home} />
+                    <Route exact path="/home" component={Home} />
 
-                    <Route path="/login" component={Login} />
-                    <Route path="/products" component={Products} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/products" component={Products} />
 
-                    <Route path="/register" component={Register} />
-                    <ProtectedRoute path="/cart" component={Cart} />
-                    <Route path="/forgotPassword" component={ForgetPassword} />
-                    <Route path="/forgot" component={Forgot} />
-                    <ProtectedRoute path="/order" component={OrderPage} />
-                    <ProtectedRoute path="/address" component={AddressPage} />
+                    <Route exact path="/register" component={Register} />
+                    <ProtectedRoute exact path="/cart" component={Cart} />
+                    <Route
+                      exact
+                      path="/forgotPassword"
+                      component={ForgetPassword}
+                    />
+                    <Route exact path="/forgot" component={Forgot} />
+                    <ProtectedRoute exact path="/order" component={OrderPage} />
                     <ProtectedRoute
+                      exact
+                      path="/address"
+                      component={AddressPage}
+                    />
+                    <ProtectedRoute
+                      exact
                       path="/addAddress"
                       component={AddAddressPage}
                     />
                     <ProtectedRoute
+                      exact
                       path="/editAddress"
                       component={EditAddressPage}
                     />
                     <ProtectedRoute
+                      exact
                       path="/changePassword"
                       component={ChangePassword}
                     />
-                    <ProtectedRoute path="/profile" component={ProfilePage} />
-                    <Route path="/loc" component={Locate} />
-                    <ProtectedRoute path="/invoice" component={Invoice} />
                     <ProtectedRoute
+                      exact
+                      path="/profile"
+                      component={ProfilePage}
+                    />
+                    <Route exact path="/loc" component={Locate} />
+                    <ProtectedRoute exact path="/invoice" component={Invoice} />
+                    <ProtectedRoute
+                      exact
                       path="/editProfile"
                       component={EditProfilePage}
                     />
-                    <Route
-                      exact
-                      path="/productDetail/:id"
-                      component={ProductDetail}
-                    />
-                    <Route path="*" component={PageNotFound} />
+
+                    <Route exact path="/products/:id" component={ProductDetail} />
+                    <Route exact component={PageNotFound} />
+                 
                   </Switch>
                   <Footer />
                 </Router>

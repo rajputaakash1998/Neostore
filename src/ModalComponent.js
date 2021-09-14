@@ -33,7 +33,7 @@ function ModalComponent(props) {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <p className="text-center m-4">Are you sure that you want to delete this ?</p>
+        <p className="text-center m-4">{props.text}</p>
         <button
           className="btn btn-outline-warning mt-5  float-left"
           onClick={props.closeModal}

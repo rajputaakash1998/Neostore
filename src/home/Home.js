@@ -35,7 +35,7 @@ function Home() {
 
   console.log("Products",products)
   return (
-    <div>
+    <div className="custom-container">
       <section>
         <CarouselPage data={products} />
       </section>

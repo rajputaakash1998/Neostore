@@ -61,7 +61,9 @@ function Cart() {
   };
 
   return (
-    <div className="p-4">
+    
+    
+    <div className="p-4 custom-container">
       <div className="row">
         <div className="col-md-8">
           <div className="cart-box">
@@ -98,10 +100,10 @@ function Cart() {
               ) : (
                 <div className="d-flex">
                   <p style={{ marginLeft: "5px" }}>Product</p>
-                  <p style={{ marginLeft: "300px" }}>Quantity</p>
+                  <p style={{ marginLeft: "270px" }}>Quantity</p>
                   <div className="d-flex ">
-                    <p style={{ marginLeft: "100px" }}>Price</p>
-                    <p style={{ marginLeft: "90px" }}>Total</p>
+                    <p style={{ marginLeft: "170px" }}>Price</p>
+                    <p style={{ marginLeft: "100px" }}>Total</p>
                   </div>
                 </div>
               )}
@@ -144,6 +146,7 @@ function Cart() {
         </div>
       </div>
     </div>
+    
   );
 }
 

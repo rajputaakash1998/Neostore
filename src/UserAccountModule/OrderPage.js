@@ -78,7 +78,7 @@ function OrderPage() {
             console.log("Result", result);
             return (
               <div
-                className="py-2 mb-2"
+                className="py-2 mb-4"
                 style={{ boxShadow: "0px 0px 3px 0px gray" }}
               >
                 <div className="ml-2">

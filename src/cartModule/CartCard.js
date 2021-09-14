@@ -56,7 +56,10 @@ function CartCard(props) {
 
     const response = await axios(config);
     console.log(response);
-    setCount(count - 1);
+    if(count>1){
+      setCount(count - 1);
+    }
+
     dispatch({ type: "UPDATE_QUANTITY" });
   };
   const deleteFromCart = async () => {
@@ -71,7 +74,7 @@ function CartCard(props) {
     try {
       const response = await axios(config);
       closeModal();
-      toast.success("Product Deleted Successfully", { position: "bottom-center" });
+      
       
 
       dispatch({
@@ -95,7 +98,7 @@ function CartCard(props) {
   }
 
   return (
-    <div className="card p-2" style={{ maxWidth: "100%" }}>
+    <div className="card mt-2" style={{ maxWidth: "100%" }}>
       <div className="row">
         <div className="col-md-4 d-flex">
           <img
@@ -111,33 +114,38 @@ function CartCard(props) {
         </div>
         <div className="col-md-8">
           <div className="card-body">
-            <span className="col-1">
-              <span onClick={incrementCount}>
+          <div className="d-flex justify-content-between">
+            <span className="col-4">
+              <span onClick={incrementCount} style={{color:"red"}}>
                 <i className="px-2 fa fa-plus"></i>
               </span>
               <input
                 className="text-center"
-                style={{ width: "10%" }}
+                style={{ width: "20%" }}
                 value={count}
                 type="text"
               />
-              <span onClick={decrementCount}>
+              <span onClick={decrementCount} style={{color:"red"}}>
                 <i className=" px-2 fa fa-minus"></i>
               </span>
             </span>
-            <span className="col-md-3 ml-5">
+           
+            <span className="col-2 ">
               {props.product.productId.price}
             </span>
-            <span className="col-md-3 ml-5">{props.product.totalAmount}</span>
+            <span className="col-2 ">{props.product.totalAmount}</span>
             <span
               onClick={openModal}
-              className="fa fa-trash col-md-1 ml-5"
+              className="fa fa-trash"
+              style={{color:"red"}}
             ></span>
+            </div>
             <ModalComponent
               openModal={openModal}
               closeModal={closeModal}
               modalIsOpen={modalIsOpen}
               confirmDelete={deleteFromCart}
+              text="Are you sure you want to delete this?"
             />
           </div>
         </div>
